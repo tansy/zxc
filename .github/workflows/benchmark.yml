@@ -25,7 +25,7 @@ jobs:
         os: [ubuntu-latest, macos-15-xlarge] # macos-15-xlarge macos-latest
 
     env:
-        LZBENCH_BRANCH: add-zxc-codec
+        LZBENCH_BRANCH: feat/add-zxc-codec
         LZBENCH_DIR: lzbench
         SILESIA_DIR: silesia
 
