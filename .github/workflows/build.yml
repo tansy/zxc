@@ -4,6 +4,8 @@ on:
   workflow_dispatch:
   push:
     branches: [ main, candidate ]
+    paths:
+      - '!**/*.md'
     tags:
       - 'v*'
   pull_request:

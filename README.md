@@ -129,7 +129,7 @@ Benchmarks were conducted using lzbench (from @inikep), compiled with GCC 13.3.0
 
 1.  Go to the [Releases page](https://github.com/hellobertrand/zxc/releases).
 2.  Download the binary matching your architecture:
-    *   `zxc-macos-arm64` for Apple Silicon (M1/M2/M3).
+    *   `zxc-macos-arm64` for Apple Silicon.
     *   `zxc-linux-aarch64` for ARM-based Linux servers.
     *   `zxc-linux-x86_64` for standard Linux servers.
     *   `zxc-windows-x86_64.exe` for Windows servers.
