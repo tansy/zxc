@@ -45,7 +45,7 @@ extern "C" {
 #if defined(__SSE4_1__) || defined(__AVX__)
 #define ZXC_USE_SSE41
 #endif
-#elif defined(__aarch64__) || defined(_M_ARM64)
+#elif defined(__ARM_NEON) || defined(__ARM_NEON__)
 #include <arm_acle.h>
 #include <arm_neon.h>
 #define ZXC_USE_NEON
@@ -123,7 +123,7 @@ extern "C" {
 #define ZXC_TOKEN_ML_MASK 0x0F
 
 // LZ77 Constants
-#define ZXC_LZ_HASH_BITS 13                       // 64K entries (fits in L1 cache) 13 on x86
+#define ZXC_LZ_HASH_BITS 13                       // 64K entries (fits in L1 cache)
 #define ZXC_LZ_HASH_SIZE (1 << ZXC_LZ_HASH_BITS)  // Hash table size
 #define ZXC_LZ_WINDOW_SIZE (1 << 16)              // 64KB sliding window
 #define ZXC_LZ_MIN_MATCH 5                        // Minimum match length
