@@ -119,11 +119,15 @@ extern "C" {
 #define ZXC_BLOCK_CHECKSUM_SIZE 8      // Size of checksum field in bytes
 
 // Token Format Constants
-#define ZXC_TOKEN_LIT_BITS 4
-#define ZXC_TOKEN_ML_MASK 0x0F
+#define ZXC_TOKEN_LIT_BITS 4    // Number of bits for Literal Length in token
+#define ZXC_TOKEN_ML_MASK 0x0F  // Mask to extract Match Length from token
 
 // LZ77 Constants
-#define ZXC_LZ_HASH_BITS 13                       // 64K entries (fits in L1 cache)
+// The hash table uses 13 bits for addressing, resulting in 8192 (2^13) entries.
+// The hash table uses 2x entries (load factor < 0.5) to reduce collisions.
+// Each hash table entry stores: (epoch << 18) | offset.
+// Total memory footprint: 64KB (8192 entries * 2 * 4 bytes each).
+#define ZXC_LZ_HASH_BITS 13                       // (2*(2^13) * 4 bytes = 64KB)
 #define ZXC_LZ_HASH_SIZE (1 << ZXC_LZ_HASH_BITS)  // Hash table size
 #define ZXC_LZ_WINDOW_SIZE (1 << 16)              // 64KB sliding window
 #define ZXC_LZ_MIN_MATCH 5                        // Minimum match length

@@ -9,7 +9,7 @@
 #include "../../include/zxc.h"
 #include "zxc_internal.h"
 
-#define ZXC_DEC_BATCH 32
+#define ZXC_DEC_BATCH 32  // Number of sequences to decode in a batch
 
 /**
  * @brief Consumes a specified number of bits from the bit reader buffer without performing safety
@@ -428,20 +428,15 @@ static int zxc_decode_block_gnr(zxc_cctx_t* ctx, const uint8_t* restrict src, si
                 if (token & 0x80) {
                     // Repeat Run
                     size_t len = (token & 0x7F) + 4;
-                    if (w_ptr + len > w_end || r_ptr >= r_end) {
-                        // free(rle_buf);
-                        return -1;
-                    }
+                    if (w_ptr + len > w_end || r_ptr >= r_end) return -1;
+
                     uint8_t val = *r_ptr++;
                     ZXC_MEMSET(w_ptr, val, len);
                     w_ptr += len;
                 } else {
                     // Literal Run
                     size_t len = token + 1;
-                    if (w_ptr + len > w_end || r_ptr + len > r_end) {
-                        // free(rle_buf);
-                        return -1;
-                    }
+                    if (w_ptr + len > w_end || r_ptr + len > r_end) return -1;
                     ZXC_MEMCPY(w_ptr, r_ptr, len);
                     w_ptr += len;
                     r_ptr += len;

@@ -9,10 +9,16 @@
 #include "../../include/zxc.h"
 #include "zxc_internal.h"
 
-#define ZXC_NUM_FRAME_SIZE 128
-#define ZXC_EPOCH_BITS 14
-#define ZXC_OFFSET_MASK ((1U << (32 - ZXC_EPOCH_BITS)) - 1)
-#define ZXC_MAX_EPOCH (1U << ZXC_EPOCH_BITS)
+#define ZXC_NUM_FRAME_SIZE \
+    128  // Maximum number of frames that can be processed in a single compression operation.
+#define ZXC_EPOCH_BITS \
+    14  // Number of bits reserved for epoch tracking in compressed pointers.
+        // Derived from chunk size: 2^18 = ZXC_CHUNK_SIZE => 32 - 18 = 14 bits.
+#define ZXC_OFFSET_MASK              \
+    ((1U << (32 - ZXC_EPOCH_BITS)) - \
+     1)  // Mask to extract the offset bits from a compressed pointer.
+#define ZXC_MAX_EPOCH \
+    (1U << ZXC_EPOCH_BITS)  // Maximum number of epochs supported by the compression system.
 
 #if defined(ZXC_USE_AVX2)
 /**
