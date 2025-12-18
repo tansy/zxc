@@ -1120,7 +1120,6 @@ int zxc_decompress_chunk_wrapper(zxc_cctx_t* ctx, const uint8_t* src, size_t src
     return decoded_sz;
 }
 
-
 /**
  * @brief Decompresses a ZXC compressed buffer.
  *

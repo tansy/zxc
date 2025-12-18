@@ -9,14 +9,14 @@
 #ifndef ZXC_INTERNAL_H
 #define ZXC_INTERNAL_H
 
-#include "../../include/zxc_sans_io.h"
-
 #include <assert.h>
 #include <inttypes.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "../../include/zxc_sans_io.h"
 
 #ifdef __cplusplus
 extern "C" {

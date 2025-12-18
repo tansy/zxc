@@ -9,8 +9,8 @@
 #ifndef ZXC_H
 #define ZXC_H
 
-#include "zxc_constants.h" // IWYU pragma: keep
-#include "zxc_buffer.h" // IWYU pragma: keep
-#include "zxc_stream.h" // IWYU pragma: keep
+#include "zxc_buffer.h"     // IWYU pragma: keep
+#include "zxc_constants.h"  // IWYU pragma: keep
+#include "zxc_stream.h"     // IWYU pragma: keep
 
 #endif  // ZXC_H

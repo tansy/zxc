@@ -6,14 +6,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#include "../../include/zxc_buffer.h"
-#include "../../include/zxc_stream.h"
-#include "../../include/zxc_sans_io.h"
-#include "zxc_internal.h"
-
-#include <stdint.h>
 #include <stddef.h>
+#include <stdint.h>
 #include <stdio.h>
+
+#include "../../include/zxc_buffer.h"
+#include "../../include/zxc_sans_io.h"
+#include "../../include/zxc_stream.h"
+#include "zxc_internal.h"
 
 /*
  * ============================================================================
@@ -178,7 +178,6 @@ typedef struct {
  */
 typedef int (*zxc_chunk_processor_t)(zxc_cctx_t* ctx, const uint8_t* in, size_t in_sz, uint8_t* out,
                                      size_t out_cap);
-
 
 /**
  * @struct zxc_stream_ctx_t
@@ -447,7 +446,7 @@ static void* zxc_async_writer(void* arg) {
  * -1 if an initialization or I/O error occurred.
  */
 static int64_t zxc_stream_engine_run(FILE* f_in, FILE* f_out, int n_threads, int mode, int level,
-                              int checksum_enabled, zxc_chunk_processor_t func) {
+                                     int checksum_enabled, zxc_chunk_processor_t func) {
     zxc_stream_ctx_t ctx;
     ZXC_MEMSET(&ctx, 0, sizeof(ctx));
 
