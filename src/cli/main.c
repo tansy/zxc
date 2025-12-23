@@ -187,15 +187,15 @@ void print_help(const char* app) {
     printf("Usage: %s [<options>] [<argument>]...\n\n", app);
     printf(
         "Standard Modes:\n"
-        "  -z, --compress    Compress FILE (default)\n"
+        "  -z, --compress    Compress FILE {default}\n"
         "  -d, --decompress  Decompress FILE (or stdin -> stdout)\n"
         "  -b, --bench       Benchmark in-memory\n\n"
         "Special Options:\n"
         "  -V, --version     Show version information\n"
         "  -h, --help        Show this help message\n\n"
         "Options:\n"
-        "  -l, --level N     Compression level (1-9)\n"
-        "  -t, --threads N   Number of threads (0=auto)\n"
+        "  -1..-5            Compression level {3}\n"
+        "  -T, --threads N   Number of threads (0=auto)\n"
         "  -C, --checksum    Enable checksum\n"
         "  -N, --no-checksum Disable checksum\n"
         "  -k, --keep        Keep input file\n"
@@ -244,8 +244,7 @@ int main(int argc, char** argv) {
     static const struct option long_options[] = {{"compress", no_argument, 0, 'z'},
                                                  {"decompress", no_argument, 0, 'd'},
                                                  {"bench", optional_argument, 0, 'b'},
-                                                 {"level", required_argument, 0, 'l'},
-                                                 {"threads", required_argument, 0, 't'},
+                                                 {"threads", required_argument, 0, 'T'},
                                                  {"keep", no_argument, 0, 'k'},
                                                  {"force", no_argument, 0, 'f'},
                                                  {"stdout", no_argument, 0, 'c'},
@@ -258,7 +257,7 @@ int main(int argc, char** argv) {
                                                  {0, 0, 0, 0}};
 
     int opt;
-    while ((opt = getopt_long(argc, argv, "b::cCdfhkl:Nqt:vVz", long_options, NULL)) != -1) {
+    while ((opt = getopt_long(argc, argv, "12345b::cCdfhkl:Nqt:vVz", long_options, NULL)) != -1) {
         switch (opt) {
             case 'z':
                 mode = MODE_COMPRESS;
@@ -270,10 +269,12 @@ int main(int argc, char** argv) {
                 mode = MODE_BENCHMARK;
                 if (optarg) iterations = atoi(optarg);
                 break;
-            case 'l':
-                level = atoi(optarg);
+            case '1':  case '2':  case '3':  case '4': case '5':
+                level = opt - '0';
+                if(level < 2)
+                    level = 2;
                 break;
-            case 't':
+            case 'T':
                 num_threads = atoi(optarg);
                 break;
             case 'k':
