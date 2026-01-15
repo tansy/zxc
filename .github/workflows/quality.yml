@@ -15,20 +15,20 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
 
 jobs:
-  quality-checks:
-    name: Code Quality
+  cppcheck:
+    name: Code Quality - Cppcheck
     runs-on: ubuntu-latest
     
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
 
-      - name: Install Analysis Tools
+      - name: Install Cppcheck
         run: |
           sudo apt-get update
-          sudo apt-get install -y cppcheck clang-tools valgrind cmake
+          sudo apt-get install -y cppcheck
 
-      - name: Cppcheck Static Analysis
+      - name: Run Cppcheck
         run: |
           cppcheck --enable=all \
             --library=gnu \
@@ -41,6 +41,19 @@ jobs:
             --force \
             -I include \
             src/
+
+  quality-checks:
+    name: Code Quality - Advanced Checks
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v6
+
+      - name: Install Analysis Tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang-tools valgrind cmake
 
       - name: Clang Static Analyzer (Scan-Build)
         run: |
