@@ -554,7 +554,7 @@ static int zxc_decode_block_glo(zxc_cctx_t* ctx, const uint8_t* RESTRICT src, si
 
             while (r_ptr < r_end && w_ptr < w_end) {
                 uint8_t token = *r_ptr++;
-                if (LIKELY(!(token & 0x80))) {
+                if (LIKELY(!(token & ZXC_LIT_RLE_FLAG))) {
                     // Raw copy (most common path): use ZXC_PAD_SIZE-byte wild copies
                     // token is 7-bit (0-127), so len is 1-128 bytes
                     uint32_t len = (uint32_t)token + 1;
@@ -590,7 +590,7 @@ static int zxc_decode_block_glo(zxc_cctx_t* ctx, const uint8_t* RESTRICT src, si
                     r_ptr += len;
                 } else {
                     // RLE run: fill with single byte
-                    uint32_t len = (token & 0x7F) + 4;
+                    uint32_t len = (token & ZXC_LIT_LEN_MASK) + 4;
                     if (UNLIKELY(w_ptr + len > w_end || r_ptr >= r_end)) return -1;
                     ZXC_MEMSET(w_ptr, *r_ptr++, len);
                     w_ptr += len;

@@ -167,6 +167,11 @@ extern "C" {
 #define ZXC_VBYTE_MSB (1U << (8 * sizeof(uint8_t) - 1))  // Most significant bit of a vbyte (128)
 #define ZXC_VBYTE_MASK (ZXC_VBYTE_MSB - 1)               // Mask to extract vbyte value (127)
 
+// Literal Stream Encoding Constants
+#define ZXC_LIT_RLE_FLAG 0x80U  // Flag bit for RLE run in literal stream (128)
+#define ZXC_LIT_LEN_MASK \
+    (ZXC_LIT_RLE_FLAG - 1)  // Mask to extract length from RLE/Literal token (127)
+
 // LZ77 Constants
 // The hash table uses 13 bits for addressing, resulting in 8192 (2^13) entries.
 // The hash table uses 2x entries (load factor < 0.5) to reduce collisions.

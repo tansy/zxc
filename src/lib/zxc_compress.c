@@ -920,7 +920,7 @@ static int zxc_encode_block_glo(zxc_cctx_t* ctx, const uint8_t* RESTRICT src, si
                 // RLE runs: emit 2-byte tokens (header + value)
                 while (run >= 4) {
                     size_t chunk = (run > 131) ? 131 : run;
-                    *p_curr++ = (uint8_t)(0x80 | (chunk - 4));
+                    *p_curr++ = (uint8_t)(ZXC_LIT_RLE_FLAG | (chunk - 4));
                     *p_curr++ = b;
                     run -= chunk;
                 }
